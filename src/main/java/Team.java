@@ -12,8 +12,6 @@ public class Team {
     private int teamId;
 
     private String teamName;
-
-
     private Discipline discipline;
 
     public Team(){
