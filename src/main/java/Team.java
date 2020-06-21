@@ -5,17 +5,18 @@ import javax.persistence.Id;
 
 @Entity
 public class Team {
+
     @Id
-
-
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int teamId;
 
     private String teamName;
     private Discipline discipline;
 
-    public Team(){
-
+    public Team(int teamId, String teamName, Discipline discipline) {
+        this.teamId = teamId;
+        this.teamName = teamName;
+        this.discipline = discipline;
     }
 
     public int getTeamId() {

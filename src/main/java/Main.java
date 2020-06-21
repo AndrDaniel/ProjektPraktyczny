@@ -8,10 +8,8 @@ public class Main  {
         EntityManagerFactory managerFactory =
                 Persistence.createEntityManagerFactory("mysqlPU");
         EntityManager entityManager = managerFactory.createEntityManager();
-       Team team1 = new Team();
-       team1.setTeamId(1);
-       team1.setTeamName("FC_BRCL");
-       team1.setDiscipline(Discipline.VOLLEYBALL);
+       Team team1 = new Team(1,"FC",Discipline.VOLLEYBALL);
+
     }
     }
 
