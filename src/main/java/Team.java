@@ -7,16 +7,13 @@ import javax.persistence.Id;
 public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int teamId;
 
     private String teamName;
     private Discipline discipline;
 
-    public Team(int teamId, String teamName, Discipline discipline) {
-        this.teamId = teamId;
-        this.teamName = teamName;
-        this.discipline = discipline;
+    public Team(){
     }
 
     public int getTeamId() {
@@ -42,6 +39,7 @@ public class Team {
     public void setDiscipline(Discipline discipline) {
         this.discipline = discipline;
     }
+
 
     @Override
     public String toString() {
