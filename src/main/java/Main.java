@@ -9,9 +9,10 @@ public class Main  {
                 Persistence.createEntityManagerFactory("mysqlPU");
         EntityManager entityManager = managerFactory.createEntityManager();
        Menu menu1 = new Menu();
-       menu1.menu();
+        Scanner input = new Scanner(System.in);
+       menu1.menu(input);
 
-       Team team1 = new Team();
+
 
     }
 

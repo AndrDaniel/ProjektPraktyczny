@@ -1,7 +1,4 @@
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Team {
@@ -10,10 +7,16 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int teamId;
 
+@Column(name = "Nazwa drużyny",nullable = false,length = 45)
     private String teamName;
+    @Column(name = "Dyscyplina",nullable = false,length = 45)
     private Discipline discipline;
 
-    public Team(){
+
+    public Team(int teamId, String teamName, Discipline discipline) {
+        this.teamId = teamId;
+        this.teamName = teamName;
+        this.discipline = discipline;
     }
 
     public int getTeamId() {
