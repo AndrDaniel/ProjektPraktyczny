@@ -19,8 +19,8 @@ public class Menu {
         } else if (w == 2) {
             System.out.println("sędziowie");
         } else if (w == 3) {
-            TeamService service = new TeamService();
-service.teamManagement();
+//            TeamService service = new TeamService();
+//service.teamManagement();
 
         }
     }
