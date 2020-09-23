@@ -1,9 +1,9 @@
 package AndrDaniel.com.github.domain.Referee;
 
 public class Referee {
-    public int id;
-    public String firstName;
-    public String lastName;
+    private final int id;
+    private final String firstName;
+    private final String lastName;
 
     public Referee(int id, String firstName, String lastName) {
 
@@ -11,8 +11,21 @@ public class Referee {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-public String getInfo(){
-        return String.format("Dodano nowego sędziego: (%d) %s %s", this.id, this.firstName, this.lastName);
-}
+
+    public String getInfo() {
+        return String.format("(%d) %s %s", this.id, this.firstName, this.lastName);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    String toCSV() {
+        return String.format("%d,%s,%s%s",
+                this.id,
+                this.firstName,
+                this.lastName,
+                System.getProperty("line.separator"));
+    }
 
 }

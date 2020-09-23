@@ -5,19 +5,25 @@ import AndrDaniel.com.github.domain.Score.Score;
 import AndrDaniel.com.github.domain.Team.Team;
 
 public class Turnament {
-    private Team [] team;
-    private Score score;
-    private Referee referee;
+    private final Team team1;
+    private final Team team2;
+    private final Score score;
+    private final Referee referee;
 
 
-   public Turnament(Team[] team,Score score, Referee referee) {
-      this.team = team;
+   public Turnament(Team team1,Team team2,Score score, Referee referee) {
+      this.team1 = team1;
+      this.team2 = team2;
       this.score = score;
       this.referee = referee;
    }
 
-   public Team[] getTeam() {
-      return team;
+   public Team getTeam1() {
+      return team1;
+   }
+
+   public Team getTeam2() {
+      return team2;
    }
 
    public Score getScore() {
