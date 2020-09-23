@@ -1,8 +1,8 @@
 package AndrDaniel.com.github.domain.Team;
 
 public class Team {
-    private int id;
-    private String teamName;
+    private final int id;
+    private final String teamName;
 
     public Team(int id, String teamName) {
         this.id = id;
@@ -11,6 +11,15 @@ public class Team {
 
     public int getId() {
         return id;
+    }
+    public String getInfo(){
+        return String.format("Drużyna nr: (%d) %s",this.id,this.teamName);
+    }
+    String toCSV() {
+        return String.format("%d,%s%s",
+                this.id,
+                this.teamName,
+                System.getProperty("line.separator"));
     }
 
     public String getTeamName() {

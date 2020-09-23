@@ -1,5 +1,4 @@
-package AndrDaniel.com.github.domain.Referee;
-
+package AndrDaniel.com.github.domain.Team;
 
 
 import java.io.IOException;
@@ -10,33 +9,30 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class RefereeRepository {
-    private final List<Referee> referees = new ArrayList<>();
-
-    public Referee createNewReferee(String firstName, String lastName) {
-        Referee newReferee = new Referee(findNewId(), firstName, lastName);
-        referees.add(newReferee);
-        return newReferee;
+public class TeamRepository {
+    private final List<Team> teams =new ArrayList<>();
+    public Team createNewTeam(String teamName) {
+        Team newTeam = new Team(findNewId(),teamName);
+        teams.add(newTeam);
+        return newTeam;
+    }
+    public Team addExistingTeam(int id,String teamName) {
+        Team newTeam = new Team(id,teamName);
+        teams.add(newTeam);
+        return newTeam;
     }
 
-    public Referee addExistingReferee(int id, String firstName, String lastName) {
-        Referee newReferee = new Referee(id, firstName, lastName);
-        referees.add(newReferee);
-        return newReferee;
+    public List<Team> getAll() {
+        return this.teams;
     }
 
-    public List<Referee> getAll() {
-        return this.referees;
-    }
-
-    void saveAll() {
-        String name = "referees.csv";
+    public void saveAll() {
+        String name = "teams.csv";
 
         Path file = Paths.get(System.getProperty("user.home"), "Tournament", name);
         StringBuilder sb = new StringBuilder("");
-        for (Referee ref : this.referees) {
-            sb.append(ref.toCSV());
+        for (Team team : this.teams) {
+            sb.append(team.toCSV());
         }
         try {
             Path tournament_dir = Paths.get(System.getProperty("user.home"), "Tournament");
@@ -49,8 +45,8 @@ public class RefereeRepository {
         }
     }
 
-    void readAll() {
-        String name = "referees.csv";
+    public void readAll() {
+        String name = "teams.csv";
 
         Path file = Paths.get(System.getProperty("user.home"),
                 "Tournament", name);
@@ -63,7 +59,7 @@ public class RefereeRepository {
             for (String refereeAsString : refereesAsString) {
                 String[] refereeData = refereeAsString.split(",");
                 int id = Integer.parseInt(refereeData[0]);
-                addExistingReferee(id, refereeData[1], refereeData[2]);
+                addExistingTeam(id, refereeData[1]);
             }
         } catch (IOException e) {
             System.out.println("Nie udało się odczytać pliku z danymi.");
@@ -71,41 +67,38 @@ public class RefereeRepository {
         }
 
     }
-
     private int findNewId() {
         int max = 0;
-        for (Referee referee : referees) {
-            if (referee.getId() > max) {
-                max = referee.getId();
+        for (Team team : teams) {
+            if (team.getId() > max) {
+                max = team.getId();
             }
         }
         return max + 1;
     }
 
-    public void remove( int id) {
+    public void remove(int id) {
         int refereeToBeRemovedIndex = -1;
-        for (int i = 0; i <this.referees.size() ; i++) {
-            if (this.referees.get(i).getId() == id) {
+        for (int i = 0; i <this.teams.size() ; i++) {
+            if (this.teams.get(i).getId() == id) {
                 refereeToBeRemovedIndex = i;
                 break;
             }
         }
-            if(refereeToBeRemovedIndex>-1){
-                this.referees.remove(refereeToBeRemovedIndex);
-            }
+        if(refereeToBeRemovedIndex>-1){
+            this.teams.remove(refereeToBeRemovedIndex);
         }
-
-
-    public void edit(int id, String firstName, String lastName) {
-        this.remove(id);
-        this.addExistingReferee(id,firstName, lastName);
     }
 
+    public void edit(int id, String teamName) {
+        this.remove(id);
+        this.addExistingTeam(id,teamName);
+    }
 
-    public Referee findById(int id) {
-        for(Referee referee: referees){
-            if(referee.getId() == id){
-                return referee;
+    public Team getById(int id) {
+        for(Team team : teams) {
+            if(team.getId() == id){
+                return team;
             }
         }
         return null;

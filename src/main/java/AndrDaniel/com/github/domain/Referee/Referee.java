@@ -13,7 +13,7 @@ public class Referee {
     }
 
     public String getInfo() {
-        return String.format("(%d) %s %s", this.id, this.firstName, this.lastName);
+        return String.format("Sędzia nr: (%d) %s %s", this.id, this.firstName, this.lastName);
     }
 
     public int getId() {
