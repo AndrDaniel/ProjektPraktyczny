@@ -1,6 +1,8 @@
 package AndrDaniel.com.github.domain.Team;
 
 
+import AndrDaniel.com.github.domain.Referee.Referee;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -8,16 +10,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TeamRepository {
-    private final List<Team> teams =new ArrayList<>();
+
+    private final List<Team> teams = new ArrayList<>();
+
     public Team createNewTeam(String teamName) {
-        Team newTeam = new Team(findNewId(),teamName);
+        Team newTeam = new Team(findNewId(), teamName);
         teams.add(newTeam);
         return newTeam;
     }
-    public Team addExistingTeam(int id,String teamName) {
-        Team newTeam = new Team(id,teamName);
+
+    public Team addExistingTeam(int id, String teamName) {
+        Team newTeam = new Team(id, teamName);
         teams.add(newTeam);
         return newTeam;
     }
@@ -50,7 +56,7 @@ public class TeamRepository {
 
         Path file = Paths.get(System.getProperty("user.home"),
                 "Tournament", name);
-        if(!Files.exists(file)){
+        if (!Files.exists(file)) {
             return;
         }
         try {
@@ -67,6 +73,7 @@ public class TeamRepository {
         }
 
     }
+
     private int findNewId() {
         int max = 0;
         for (Team team : teams) {
@@ -79,25 +86,31 @@ public class TeamRepository {
 
     public void remove(int id) {
         int refereeToBeRemovedIndex = -1;
-        for (int i = 0; i <this.teams.size() ; i++) {
+        for (int i = 0; i < this.teams.size(); i++) {
             if (this.teams.get(i).getId() == id) {
                 refereeToBeRemovedIndex = i;
                 break;
             }
         }
-        if(refereeToBeRemovedIndex>-1){
+        if (refereeToBeRemovedIndex > -1) {
             this.teams.remove(refereeToBeRemovedIndex);
         }
     }
 
     public void edit(int id, String teamName) {
         this.remove(id);
-        this.addExistingTeam(id,teamName);
+        this.addExistingTeam(id, teamName);
+    }
+
+    public Team getRandomTeam() {
+        Random rand = new Random();
+        return teams.get(rand.nextInt(teams.size()));
+
     }
 
     public Team getById(int id) {
-        for(Team team : teams) {
-            if(team.getId() == id){
+        for (Team team : teams) {
+            if (team.getId() == id) {
                 return team;
             }
         }

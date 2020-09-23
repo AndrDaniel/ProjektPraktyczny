@@ -12,14 +12,15 @@ public class TournamentService {
     private final RefereeService refereeService = new RefereeService();
     private final TeamService teamService = new TeamService();
 
-    public Tournament createTournament(int team1Id, int team2Id, int refereeId) {
+    public Tournament createTournament(Team team1, Team team2, int refereeId) {
 
-        //TODO handle null room
-        Team team1 = this.teamService.getTeamById(team1Id);
-        Team team2 = this.teamService.getTeamById(team2Id);
+        int id = team1.getId();
+        int id2 = team2.getId();
+        Team team1Id = this.teamService.getTeamById(id);
+        Team team2Id = this.teamService.getTeamById(id2);
         Referee referee = this.refereeService.getRefereeById(refereeId);
 
-       return this.repo.createTournament(team1, team2, referee);
+        return this.repo.createTournament(team1Id, team2Id, referee);
     }
 
     public Referee getRandomElement(List<Referee> list) {

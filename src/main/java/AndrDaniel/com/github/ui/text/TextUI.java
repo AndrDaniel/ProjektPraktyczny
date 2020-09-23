@@ -40,7 +40,6 @@ public class TextUI {
         }
 
     }
-
     public void mainMenu(Scanner input) {
         System.out.println();
         System.out.println("     ****************************************");
@@ -65,54 +64,34 @@ public class TextUI {
             }
         }
     }
-
-    private void readNewTournamentData(Scanner input) {
+    private int getActionForMainMenu(Scanner input) {
+        System.out.println("1.Sędziowie");
+        System.out.println("2.Drużyny");
+        System.out.println("3.Turniej ");
+        System.out.println("4.Wyniki");
+        System.out.println("0.Wyjście z aplikacji.");
+        int option = 0;
         try {
-            System.out.print("Podaj id pierwszej drużyny: ");
-            int team1Id = input.nextInt();
-            System.out.print("Podaj id drugiej drużyny: ");
-            int team2Id = input.nextInt();
-            System.out.println("Podaj id sędziego: ");
-            int refereeId = input.nextInt();
-
-            Tournament tournament = this.tournamentService.createTournament(team1Id, team2Id,refereeId);
-            if(tournament!=null){
-                System.out.println("Udało się stworzyć turniej");
-            }
+            option = input.nextInt();
         } catch (InputMismatchException e) {
-            throw new OnlyNumberException("Wrong characters use instead of numbers");
-
+            throw new OnlyNumberException("Use only numbers in main menu");
         }
+        return option;
     }
 
-    private void readNewTeamData(Scanner input) {
+    private int getActionForTournament(Scanner input) {
+        System.out.println("1.Stwórz turniej.");
+        System.out.println("2.Wyświetl mecze w turnieju.");
+        System.out.println("0.Cofnięcie do menu głównego.");
+        System.out.println("Wybierz opcję: ");
+        int option = 0;
         try {
-            System.out.print("Podaj nazwę drużyny: ");
-            input.nextLine();
-            String firstName = input.nextLine();
-            Team team = teamService.createNewTeam(firstName);
-            System.out.println("Dodano nową drużynę: " + team.getInfo());
+            option = input.nextInt();
         } catch (InputMismatchException e) {
-            throw new OnlyNumberException("Wrong characters use instead of numbers");
-
+            throw new OnlyNumberException("Use only numbers in main menu");
         }
+        return option;
     }
-
-    private void readNewRefereeData(Scanner input) {
-        try {
-            System.out.print("Podaj imię sędziego: ");
-            input.nextLine();
-            String firstName = input.nextLine();
-            System.out.print("Podaj nazwisko sędziego: ");
-            String lastName = input.nextLine();
-            Referee referee = refereeService.createNewReferee(firstName, lastName);
-            System.out.println("Dodano nowego sędziego: " + referee.getInfo());
-        } catch (InputMismatchException e) {
-            throw new OnlyNumberException("Wrong characters use instead of numbers");
-
-        }
-    }
-
     private void performActionTournament(Scanner input) {
         int option = -1;
         while (option != 0) {
@@ -131,36 +110,28 @@ public class TextUI {
             }
         }
     }
+    private void readNewTournamentData(Scanner input) {
+        try {
+//            System.out.print("Podaj id pierwszej drużyny: ");
+//            int team1Id = input.nextInt();
+//            System.out.print("Podaj id drugiej drużyny: ");
+//            int team2Id = input.nextInt();
+            System.out.println("Podaj id sędziego: ");
+            int refereeId = input.nextInt();
 
+            Tournament tournament = this.tournamentService.createTournament(teamService.getRandomTeam(), teamService.getRandomTeam(),refereeId);
+            if(tournament!=null){
+                System.out.println("Udało się stworzyć turniej");
+            }
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Wrong characters use instead of numbers");
+
+        }
+    }
     private void showAllTeamsFromTournament(Scanner input) {
         List<Tournament> tournaments = this.tournamentService.getAllTeams();
         for (Tournament tournament : tournaments) {
             System.out.println(tournament.getInfo());
-        }
-    }
-
-    private void performActionTeam(Scanner input) {
-        int option = -1;
-        while (option != 0) {
-            option = getActionForTeam(input);
-            if (option == 1) {
-                System.out.println("Dodawanie drużyny.");
-               readNewTeamData(input);
-            } else if (option == 2) {
-                System.out.println("Usuwanie drużyny.");
-                removeTeam(input);
-            } else if (option == 3) {
-                System.out.println("Edytowanie drużyny.");
-                editTeam(input);
-            } else if (option == 4) {
-                System.out.println("Wszystkie drużyny");
-                showAllTeams();
-            } else if (option == 0) {
-                System.out.println("Cofam do menu głównego. Zapisuję dane.");
-                this.teamService.saveAll();
-            } else {
-                throw new WrongOptionException("Wrong option in main menu");
-            }
         }
     }
 
@@ -179,14 +150,48 @@ public class TextUI {
         }
         return option;
     }
+    private void performActionTeam(Scanner input) {
+        int option = -1;
+        while (option != 0) {
+            option = getActionForTeam(input);
+            if (option == 1) {
+                System.out.println("Dodawanie drużyny.");
+                readNewTeamData(input);
+            } else if (option == 2) {
+                System.out.println("Usuwanie drużyny.");
+                removeTeam(input);
+            } else if (option == 3) {
+                System.out.println("Edytowanie drużyny.");
+                editTeam(input);
+            } else if (option == 4) {
+                System.out.println("Wszystkie drużyny");
+                showAllTeams();
+            } else if (option == 0) {
+                System.out.println("Cofam do menu głównego. Zapisuję dane.");
+                this.teamService.saveAll();
+            } else {
+                throw new WrongOptionException("Wrong option in main menu");
+            }
+        }
+    }
+    private void readNewTeamData(Scanner input) {
+        try {
+            System.out.print("Podaj nazwę drużyny: ");
+            input.nextLine();
+            String firstName = input.nextLine();
+            Team team = teamService.createNewTeam(firstName);
+            System.out.println("Dodano nową drużynę: " + team.getInfo());
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Wrong characters use instead of numbers");
 
+        }
+    }
     private void showAllTeams() {
         List<Team> teams = this.teamService.getAllTeams();
         for (Team team : teams) {
             System.out.println(team.getInfo());
         }
     }
-
     private void editTeam(Scanner input) {
         System.out.println("Podaj id drużyny do edycji: ");
         try {
@@ -195,12 +200,11 @@ public class TextUI {
             System.out.print("Podaj nazwę drużyny: ");
             input.nextLine();
             String firstName = input.nextLine();
-          teamService.editTeam(id, firstName);
+            teamService.editTeam(id, firstName);
         } catch (InputMismatchException e) {
             throw new OnlyNumberException("Wrong characters use instead of numbers");
         }
     }
-
     private void removeTeam(Scanner input) {
         System.out.println("Podaj id drużyny do usunięcia: ");
         try {
@@ -211,6 +215,21 @@ public class TextUI {
         }
     }
 
+    private int getActionForReferee(Scanner input) {
+        System.out.println("1. Dodaj sędziego.");
+        System.out.println("2. Usuń sędziego.");
+        System.out.println("3. Edytuj sędziego.");
+        System.out.println("4. Wypisz wszystkich sędziów.");
+        System.out.println("0. Cofnięcie do menu głównego.");
+        System.out.println("Wybierz opcję: ");
+        int option = 0;
+        try {
+            option = input.nextInt();
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Use only numbers in main menu");
+        }
+        return option;
+    }
     private void performActionReferee(Scanner input) {
         int option = -1;
         while (option != 0) {
@@ -235,7 +254,20 @@ public class TextUI {
             }
         }
     }
+    private void readNewRefereeData(Scanner input) {
+        try {
+            System.out.print("Podaj imię sędziego: ");
+            input.nextLine();
+            String firstName = input.nextLine();
+            System.out.print("Podaj nazwisko sędziego: ");
+            String lastName = input.nextLine();
+            Referee referee = refereeService.createNewReferee(firstName, lastName);
+            System.out.println("Dodano nowego sędziego: " + referee.getInfo());
+        } catch (InputMismatchException e) {
+            throw new OnlyNumberException("Wrong characters use instead of numbers");
 
+        }
+    }
     private void editReferee(Scanner input) {
         System.out.println("Podaj id sędziego do edycji: ");
         try {
@@ -252,7 +284,6 @@ public class TextUI {
             throw new OnlyNumberException("Wrong characters use instead of numbers");
         }
     }
-
     private void removeReferee(Scanner input) {
         System.out.println("Podaj id sędziego do usunięcia: ");
         try {
@@ -262,7 +293,6 @@ public class TextUI {
             throw new OnlyNumberException("Wrong characters use instead of numbers");
         }
     }
-
     private void showAllReferees() {
         List<Referee> referees = this.refereeService.getAllReferees();
         for (Referee referee : referees) {
@@ -270,48 +300,18 @@ public class TextUI {
         }
     }
 
-    private int getActionForMainMenu(Scanner input) {
-        System.out.println("1.Sędziowie");
-        System.out.println("2.Drużyny");
-        System.out.println("3.Turniej ");
-        System.out.println("4.Wyniki");
-        System.out.println("0.Wyjście z aplikacji.");
-        int option = 0;
-        try {
-            option = input.nextInt();
-        } catch (InputMismatchException e) {
-            throw new OnlyNumberException("Use only numbers in main menu");
-        }
-        return option;
-    }
 
-    private int getActionForReferee(Scanner input) {
-        System.out.println("1. Dodaj sędziego.");
-        System.out.println("2. Usuń sędziego.");
-        System.out.println("3. Edytuj sędziego.");
-        System.out.println("4. Wypisz wszystkich sędziów.");
-        System.out.println("0. Cofnięcie do menu głównego.");
-        System.out.println("Wybierz opcję: ");
-        int option = 0;
-        try {
-            option = input.nextInt();
-        } catch (InputMismatchException e) {
-            throw new OnlyNumberException("Use only numbers in main menu");
-        }
-        return option;
-    }
 
-    private int getActionForTournament(Scanner input) {
-        System.out.println("1.Stwórz turniej.");
-        System.out.println("2.Wyświetl mecze w turnieju.");
-        System.out.println("0.Cofnięcie do menu głównego.");
-        System.out.println("Wybierz opcję: ");
-        int option = 0;
-        try {
-            option = input.nextInt();
-        } catch (InputMismatchException e) {
-            throw new OnlyNumberException("Use only numbers in main menu");
-        }
-        return option;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

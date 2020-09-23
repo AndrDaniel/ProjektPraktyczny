@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class TournamentRepository {
-private final List<Tournament> tournaments = new ArrayList<>();
+    private final List<Tournament> tournaments = new ArrayList<>();
 
 
     public Referee getRandom(List<Referee> list) {
@@ -18,7 +18,7 @@ private final List<Tournament> tournaments = new ArrayList<>();
     }
 
     public Tournament createTournament(Team team1, Team team2, Referee referee) {
-        Tournament newTournament = new Tournament(team1, team2,referee);
+        Tournament newTournament = new Tournament(team1, team2, referee);
         this.tournaments.add(newTournament);
         return newTournament;
     }

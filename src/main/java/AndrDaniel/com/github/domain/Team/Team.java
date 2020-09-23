@@ -12,9 +12,11 @@ public class Team {
     public int getId() {
         return id;
     }
-    public String getInfo(){
-        return String.format("Drużyna nr: (%d) %s",this.id,this.teamName);
+
+    public String getInfo() {
+        return String.format("Drużyna nr: (%d) %s", this.id, this.teamName);
     }
+
     String toCSV() {
         return String.format("%d,%s%s",
                 this.id,
@@ -22,7 +24,4 @@ public class Team {
                 System.getProperty("line.separator"));
     }
 
-    public String getTeamName() {
-        return teamName;
-    }
 }
