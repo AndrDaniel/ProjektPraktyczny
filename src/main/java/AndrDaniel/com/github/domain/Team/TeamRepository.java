@@ -1,8 +1,6 @@
 package AndrDaniel.com.github.domain.Team;
 
 
-import AndrDaniel.com.github.domain.Referee.Referee;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,20 +13,26 @@ import java.util.Random;
 public class TeamRepository {
 
     private final List<Team> teams = new ArrayList<>();
+    private final List<Team> copyTeams= new ArrayList<>();
+
+
 
     public Team createNewTeam(String teamName) {
         Team newTeam = new Team(findNewId(), teamName);
         teams.add(newTeam);
+        copyTeams.add(newTeam);
         return newTeam;
     }
 
     public Team addExistingTeam(int id, String teamName) {
         Team newTeam = new Team(id, teamName);
         teams.add(newTeam);
+        copyTeams.add(newTeam);
         return newTeam;
     }
 
     public List<Team> getAll() {
+
         return this.teams;
     }
 
@@ -104,9 +108,9 @@ public class TeamRepository {
 
     public Team getRandomTeam() {
         Random rand = new Random();
-        int randomId = rand.nextInt(teams.size());
-        Team team1 = teams.get(randomId);
-        teams.remove(randomId);
+        int randomId = rand.nextInt(copyTeams.size());
+        Team team1 = copyTeams.get(randomId);
+        copyTeams.remove(randomId);
         return team1;
 
     }

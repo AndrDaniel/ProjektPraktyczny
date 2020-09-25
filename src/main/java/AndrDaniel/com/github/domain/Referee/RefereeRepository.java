@@ -113,12 +113,11 @@ public class RefereeRepository {
         return null;
     }
 
-    public Referee getRandomReferee() {
-//       List<Referee> copyReferees = new ArrayList<>(referees);
+    public Referee getRandomReferee(List<Referee> list) {
         Random rand = new Random();
-        int randomId = rand.nextInt(referees.size());
-        Referee referee = referees.get(randomId);
-        referees.remove(randomId);
+        int randomId = rand.nextInt(list.size());
+        Referee referee = list.get(randomId);
+        list.remove(randomId);
         return referee;
     }
 }

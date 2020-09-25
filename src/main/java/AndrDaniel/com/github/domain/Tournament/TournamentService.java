@@ -1,4 +1,4 @@
-package AndrDaniel.com.github.domain.Turnament;
+package AndrDaniel.com.github.domain.Tournament;
 
 import AndrDaniel.com.github.domain.Referee.Referee;
 import AndrDaniel.com.github.domain.Referee.RefereeService;
@@ -15,11 +15,15 @@ public class TournamentService {
     public Tournament createTournament(Team team1, Team team2, Referee referee,Referee referee1,Referee referee2) {
         return this.repo.createTournament(team1, team2, referee,referee1,referee2);
     }
-
-    public Referee getRandomElement(List<Referee> list) {
-        return this.repo.getRandom(list);
-
+    public void saveAll() {
+        repo.saveAll();
     }
+
+    public void readAll() {
+        repo.readAll();
+    }
+
+
 
     public List<Tournament> getAllTeams() {
         return repo.getAll();

@@ -13,7 +13,7 @@ public class RefereeService {
         return repo.createNewReferee(firstName, lastName);
     }
 
-    public List<Referee> getAllReferees() {
+    public static List<Referee> getAllReferees() {
         return repo.getAll();
     }
 
@@ -37,8 +37,8 @@ public class RefereeService {
     public Referee getRefereeById(int id) {
          return  this.repo.findById(id);
     }
-    public Referee getRandomReferee() {
-        return this.repo.getRandomReferee();
+    public Referee getRandomReferee(List<Referee> list) {
+        return this.repo.getRandomReferee(list);
 
     }
 }

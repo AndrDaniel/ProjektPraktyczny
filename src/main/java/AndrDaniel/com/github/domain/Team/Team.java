@@ -13,8 +13,12 @@ public class Team {
         return id;
     }
 
+    public String getName() {
+        return teamName;
+    }
+
     public String getInfo() {
-        return String.format("Drużyna nr: (%d) %s", this.id, this.teamName);
+        return String.format("(%d) %s", this.id, this.teamName);
     }
 
     String toCSV() {

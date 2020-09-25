@@ -4,11 +4,12 @@ import AndrDaniel.com.github.domain.Referee.Referee;
 import AndrDaniel.com.github.domain.Referee.RefereeService;
 import AndrDaniel.com.github.domain.Team.Team;
 import AndrDaniel.com.github.domain.Team.TeamService;
-import AndrDaniel.com.github.domain.Turnament.Tournament;
-import AndrDaniel.com.github.domain.Turnament.TournamentService;
+import AndrDaniel.com.github.domain.Tournament.Tournament;
+import AndrDaniel.com.github.domain.Tournament.TournamentService;
 import AndrDaniel.com.github.exceptions.OnlyNumberException;
 import AndrDaniel.com.github.exceptions.WrongOptionException;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -24,6 +25,7 @@ public class TextUI {
         System.out.println("Trwa ładowanie danych...");
         this.refereeService.readAll();
         this.teamService.readAll();
+        this.tournamentService.readAll();
         Scanner input = new Scanner(System.in);
         try {
             mainMenu(input);
@@ -61,6 +63,7 @@ public class TextUI {
                 System.out.println("Wychodzę z aplikacji. Zapisuję dane.");
                 this.refereeService.saveAll();
                 this.teamService.saveAll();
+                this.tournamentService.saveAll();
             }
         }
     }
@@ -98,22 +101,22 @@ public class TextUI {
             option = getActionForTournament(input);
             if (option == 1) {
                 System.out.println("Turniej");
-                readNewTournamentData(input);
+                readNewTournamentData();
             } else if (option == 2) {
                 System.out.println("Wszystkie mecze turnieju.");
                 showAllTeamsFromTournament(input);
             } else if (option == 0) {
                 System.out.println("Cofam do menu głównego. Zapisuję dane.");
-                this.refereeService.saveAll();
+                this.tournamentService.saveAll();
             } else {
                 throw new WrongOptionException("Wrong option in main menu");
             }
         }
     }
-    private void readNewTournamentData(Scanner input) {
+    private void readNewTournamentData() {
         try {
-
-            Tournament tournament = this.tournamentService.createTournament(teamService.getRandomTeam(), teamService.getRandomTeam(),refereeService.getRandomReferee(),refereeService.getRandomReferee(),refereeService.getRandomReferee());
+            List<Referee> copyReferees = new ArrayList<>(RefereeService.getAllReferees());
+            Tournament tournament = this.tournamentService.createTournament(teamService.getRandomTeam(), teamService.getRandomTeam(),refereeService.getRandomReferee(copyReferees),refereeService.getRandomReferee(copyReferees),refereeService.getRandomReferee(copyReferees));
             if(tournament!=null){
                 System.out.println("Udało się stworzyć turniej");
             }
