@@ -104,7 +104,10 @@ public class TeamRepository {
 
     public Team getRandomTeam() {
         Random rand = new Random();
-        return teams.get(rand.nextInt(teams.size()));
+        int randomId = rand.nextInt(teams.size());
+        Team team1 = teams.get(randomId);
+        teams.remove(randomId);
+        return team1;
 
     }
 

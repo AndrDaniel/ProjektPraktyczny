@@ -1,6 +1,8 @@
 package AndrDaniel.com.github.domain.Referee;
 
 
+import AndrDaniel.com.github.domain.Team.Team;
+
 import java.util.List;
 
 public class RefereeService {
@@ -34,5 +36,9 @@ public class RefereeService {
 
     public Referee getRefereeById(int id) {
          return  this.repo.findById(id);
+    }
+    public Referee getRandomReferee() {
+        return this.repo.getRandomReferee();
+
     }
 }

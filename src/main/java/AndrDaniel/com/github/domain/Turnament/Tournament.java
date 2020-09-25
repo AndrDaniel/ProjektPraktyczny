@@ -1,7 +1,7 @@
 package AndrDaniel.com.github.domain.Turnament;
 
 import AndrDaniel.com.github.domain.Referee.Referee;
-import AndrDaniel.com.github.domain.Score.Score;
+
 import AndrDaniel.com.github.domain.Team.Team;
 
 public class Tournament {
@@ -10,14 +10,18 @@ public class Tournament {
 //    private final Score score1;
 //    private final Score score2;
     private final Referee referee;
+    private final Referee referee1;
+    private final Referee referee2;
 
 
 
 
-   public Tournament(Team team1, Team team2,  Referee referee) {
+   public Tournament(Team team1, Team team2,  Referee referee,Referee referee1,Referee referee2) {
       this.team1 = team1;
       this.team2 = team2;
       this.referee = referee;
+      this.referee1 = referee1;
+      this.referee2 = referee2;
 
    }
 
@@ -42,6 +46,6 @@ public class Tournament {
 
 
    public String getInfo() {
-         return String.format("%s %s %s",this.team1.getInfo(),this.team2.getInfo(),this.referee.getInfo());
+         return String.format("%s %s %s %s %s",team1.getInfo(),team2.getInfo(),referee.getInfo(),referee1.getInfo(),referee2.getInfo());
    }
 }

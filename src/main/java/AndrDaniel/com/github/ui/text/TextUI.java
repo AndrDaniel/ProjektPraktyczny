@@ -80,7 +80,7 @@ public class TextUI {
     }
 
     private int getActionForTournament(Scanner input) {
-        System.out.println("1.Stwórz turniej.");
+        System.out.println("1.Stwórz mecz.");
         System.out.println("2.Wyświetl mecze w turnieju.");
         System.out.println("0.Cofnięcie do menu głównego.");
         System.out.println("Wybierz opcję: ");
@@ -112,14 +112,8 @@ public class TextUI {
     }
     private void readNewTournamentData(Scanner input) {
         try {
-//            System.out.print("Podaj id pierwszej drużyny: ");
-//            int team1Id = input.nextInt();
-//            System.out.print("Podaj id drugiej drużyny: ");
-//            int team2Id = input.nextInt();
-            System.out.println("Podaj id sędziego: ");
-            int refereeId = input.nextInt();
 
-            Tournament tournament = this.tournamentService.createTournament(teamService.getRandomTeam(), teamService.getRandomTeam(),refereeId);
+            Tournament tournament = this.tournamentService.createTournament(teamService.getRandomTeam(), teamService.getRandomTeam(),refereeService.getRandomReferee(),refereeService.getRandomReferee(),refereeService.getRandomReferee());
             if(tournament!=null){
                 System.out.println("Udało się stworzyć turniej");
             }

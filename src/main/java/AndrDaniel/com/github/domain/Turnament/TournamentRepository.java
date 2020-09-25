@@ -17,8 +17,8 @@ public class TournamentRepository {
         return list.get(rand.nextInt(list.size()));
     }
 
-    public Tournament createTournament(Team team1, Team team2, Referee referee) {
-        Tournament newTournament = new Tournament(team1, team2, referee);
+    public Tournament createTournament(Team team1, Team team2, Referee referee,Referee referee1,Referee referee2) {
+        Tournament newTournament = new Tournament(team1, team2, referee,referee1,referee2);
         this.tournaments.add(newTournament);
         return newTournament;
     }

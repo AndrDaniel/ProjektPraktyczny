@@ -2,6 +2,7 @@ package AndrDaniel.com.github.domain.Referee;
 
 
 
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -9,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class RefereeRepository {
@@ -109,5 +111,14 @@ public class RefereeRepository {
             }
         }
         return null;
+    }
+
+    public Referee getRandomReferee() {
+//       List<Referee> copyReferees = new ArrayList<>(referees);
+        Random rand = new Random();
+        int randomId = rand.nextInt(referees.size());
+        Referee referee = referees.get(randomId);
+        referees.remove(randomId);
+        return referee;
     }
 }

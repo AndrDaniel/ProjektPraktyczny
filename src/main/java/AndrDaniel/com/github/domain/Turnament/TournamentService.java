@@ -12,15 +12,8 @@ public class TournamentService {
     private final RefereeService refereeService = new RefereeService();
     private final TeamService teamService = new TeamService();
 
-    public Tournament createTournament(Team team1, Team team2, int refereeId) {
-
-        int id = team1.getId();
-        int id2 = team2.getId();
-        Team team1Id = this.teamService.getTeamById(id);
-        Team team2Id = this.teamService.getTeamById(id2);
-        Referee referee = this.refereeService.getRefereeById(refereeId);
-
-        return this.repo.createTournament(team1Id, team2Id, referee);
+    public Tournament createTournament(Team team1, Team team2, Referee referee,Referee referee1,Referee referee2) {
+        return this.repo.createTournament(team1, team2, referee,referee1,referee2);
     }
 
     public Referee getRandomElement(List<Referee> list) {
